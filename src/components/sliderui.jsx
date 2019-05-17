@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Badge from "react-bootstrap/Badge";
 import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
-import { Handle, Track, TooltipRail } from "./slidercomponents";
+import { SliderRail, Handle, Track } from "./slidercomponents";
 
 const sliderStyle = {
   position: "relative",
@@ -41,16 +41,17 @@ class SliderUI extends Component {
           onChange={this.props.onChangeSlider}
           values={sliderValue}
         >
-          <Rail>{railProps => <TooltipRail {...railProps} />}</Rail>
+          <Rail>
+            {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+          </Rail>
           <Handles>
-            {({ handles, activeHandleID, getHandleProps }) => (
+            {({ handles, getHandleProps }) => (
               <div className="slider-handles">
                 {handles.map(handle => (
                   <Handle
                     key={handle.id}
                     handle={handle}
                     domain={domain}
-                    isActive={handle.id === activeHandleID}
                     getHandleProps={getHandleProps}
                   />
                 ))}

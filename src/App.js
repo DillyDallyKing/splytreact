@@ -66,6 +66,7 @@ class App extends Component {
         // always executed
       });
   }
+
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = null;
@@ -94,3 +95,50 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+//Checking for Unique userID
+componentDidMount() {
+  this.timer = setInterval(() => this.getCheckDrivers(), 2000);
+}
+
+getCheckDrivers() {
+  axios
+    .get(
+      "https://cors-anywhere.herokuapp.com/https://qa-interview-test.qa.splytech.io/api/drivers", //https cors-anywhere added to fix cors error
+      {
+        params: {
+          latitude: 51.5049375,
+          longitude: -0.0964509,
+          count: 50
+        }
+      }
+    )
+    .then(response => {
+      response.data.drivers.some(d =>
+        d.driver_id.includes("31mjqzs") // was from one of the urid found
+          ? console.log(
+              "FOUND! " +
+                d.driver_id +
+                " LA:" +
+                d.location.latitude +
+                " LI" +
+                d.location.longitude
+            )
+          : console.log("No")
+      );
+      
+      //this.setState({
+       // ...this.state,
+        //drivers: response.data.drivers
+      //});
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+    .then(function() {
+      // always executed
+    });
+}
+
+*/
