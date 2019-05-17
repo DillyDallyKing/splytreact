@@ -11,52 +11,45 @@ class App extends Component {
     super(props);
     this.state = {
       viewport: {
-        width: 750,
+        width: 1150,
         height: 750,
         latitude: 51.5049375,
         longitude: -0.0964509,
-        zoom: 12.25
+        zoom: 14
       },
       mapStyle: "mapbox://styles/mapbox/dark-v9",
       drivers: [],
-      slidervalue: 1
+      slidervalue: [1]
     };
     this.getDrivers();
   }
 
   //SLIDER RELATED
-  sliderChange = value => {
-    this.setState({
-      ...this.state,
-      slidervalue: value
-    });
-    this.getDrivers();
+  changeSlider = values => {
+    this.setState({ slidervalue: values });
   };
-  afterSliderChange = value => {
-    this.setState({
-      ...this.state,
-      slidervalue: value
-    });
-    this.getDrivers();
-  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.slidervalue[0] !== this.state.slidervalue[0]) {
+      this.getDrivers();
+    }
+  }
 
   //MAP RELATED
   changeViewport = newViewport => {
     const viewport = Object.assign({}, this.state.viewport, newViewport);
     this.setState({ viewport });
   };
-  componentDidMount() {
-    this.timer = setInterval(() => this.getDrivers(), 10000);
-  }
+
   getDrivers() {
     axios
       .get(
-        "https://cors-anywhere.herokuapp.com/https://qa-interview-test.qa.splytech.io/api/drivers",
+        "https://cors-anywhere.herokuapp.com/https://qa-interview-test.qa.splytech.io/api/drivers", //https cors-anywhere added to fix cors error
         {
           params: {
             latitude: 51.5049375,
             longitude: -0.0964509,
-            count: this.state.slidervalue
+            count: this.state.slidervalue[0]
           }
         }
       )
@@ -92,9 +85,8 @@ class App extends Component {
         </Row>
         <br />
         <SliderUI
+          onChangeSlider={this.changeSlider}
           sliderValue={this.state.slidervalue}
-          onSliderChange={this.sliderChange}
-          onAfterSliderChange={this.afterSliderChange}
         />
       </Container>
     );
