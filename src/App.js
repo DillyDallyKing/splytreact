@@ -13,10 +13,10 @@ class App extends Component {
     this.state = {
       viewport: {
         width: 1150,
-        height: 750,
+        height: 600,
         latitude: 51.5049375,
         longitude: -0.0964509,
-        zoom: 14
+        zoom: 13
       },
       mapStyle: "mapbox://styles/mapbox/dark-v9",
       drivers: [],
