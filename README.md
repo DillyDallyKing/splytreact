@@ -1,13 +1,15 @@
 # SplytReact
 
-The SplytReact app is built on React
+The SplytReact app is built on React.
 It uses React-Map-Gl, React-Compound-Slider and Axios.
 
 ## Basic Overview - [SplytReact - Demo](http://splytreact.surge.sh/)
 
-SplytReact is a simple prototype app which shows users the relative location of available taxis around SplytHQ (latitude=51.5049375 & longitude=-0.0964509&).
+SplytReact is a simple prototype app which shows the up to date relative location of available taxis around SplytHQ (latitude=51.5049375 & longitude=-0.0964509&).
 
 Users are able to drag the slider bar to increase or reduce the number of available taxis shown on the map.
+
+The Polling Button can be toggled on & off in order to start a 3 second polling of the API service to update the location of the available taxis.
 
 #### Requirements
 
