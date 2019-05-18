@@ -4,7 +4,8 @@ import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SplytMap from "./components/splytmap";
 import SliderUI from "./components/sliderui";
-import { Container, Row } from "react-bootstrap";
+import PollChecker from "./components/pollchecker";
+import { Container, Row, Col } from "react-bootstrap";
 
 class App extends Component {
   constructor(props) {
@@ -12,14 +13,15 @@ class App extends Component {
     this.state = {
       viewport: {
         width: 1150,
-        height: 750,
+        height: 600,
         latitude: 51.5049375,
         longitude: -0.0964509,
-        zoom: 14
+        zoom: 13
       },
       mapStyle: "mapbox://styles/mapbox/dark-v9",
       drivers: [],
-      slidervalue: [1]
+      slidervalue: [1],
+      pollcheckervalue: 0 // zero means off
     };
     this.getDrivers();
   }
@@ -32,6 +34,14 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.slidervalue[0] !== this.state.slidervalue[0]) {
       this.getDrivers();
+    }
+    if (prevState.pollcheckervalue !== this.state.pollcheckervalue) {
+      if (this.state.pollcheckervalue === 0) {
+        clearInterval(this.timer);
+        this.timer = null;
+      } else {
+        this.timer = setInterval(() => this.getDrivers(), 3000);
+      }
     }
   }
 
@@ -67,6 +77,16 @@ class App extends Component {
       });
   }
 
+  //POLLCHECKER RELATED
+
+  pollClickChecker = pollcheckervalue => {
+    if (this.state.pollcheckervalue === 1) {
+      this.setState({ pollcheckervalue: 0 });
+    } else {
+      this.setState({ pollcheckervalue: 1 });
+    }
+  };
+
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = null;
@@ -85,10 +105,20 @@ class App extends Component {
           />
         </Row>
         <br />
-        <SliderUI
-          onChangeSlider={this.changeSlider}
-          sliderValue={this.state.slidervalue}
-        />
+        <Row>
+          <Col sm={11}>
+            <SliderUI
+              onChangeSlider={this.changeSlider}
+              sliderValue={this.state.slidervalue}
+            />
+          </Col>
+          <Col sm={1}>
+            <PollChecker
+              pollCheckerValue={this.state.pollcheckervalue}
+              pollClickChecker={this.pollClickChecker}
+            />
+          </Col>
+        </Row>
       </Container>
     );
   }
