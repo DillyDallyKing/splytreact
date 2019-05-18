@@ -5,7 +5,8 @@ It uses React-Map-Gl, React-Compound-Slider and Axios.
 
 ## Basic Overview - [SplytReact - Demo](http://splytreact.surge.sh/)
 
-SpyltReact is a simple prototype app which shows users the relative location of available taxis around SplytHQ (latitude=51.5049375 & longitude=-0.0964509&).
+SplytReact is a simple prototype app which shows users the relative location of available taxis around SplytHQ (latitude=51.5049375 & longitude=-0.0964509&).
+
 Users are able to drag the slider bar to increase or reduce the number of available taxis shown on the map.
 
 #### Requirements
