@@ -1,14 +1,83 @@
 import React, { Component } from "react";
-import "./App.css";
-import axios from "axios";
+import "../styles/App.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import SplytMap from "./components/splytmap";
-import SliderUI from "./components/sliderui";
-import PollChecker from "./components/pollchecker";
+import SplytMap from "../components/splytmap";
+import SliderUI from "../components/sliderui";
+import PollChecker from "../components/pollchecker";
 import { Container, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
 
 class App extends Component {
-  constructor(props) {
+  render() {
+    return (
+      <Container>
+        <Row>
+          <SplytMap
+            mapStyle={this.props.mapStyle}
+            viewport={this.props.viewport}
+            sliderValue={this.props.slidervalue}
+            drivers={this.props.drivers}
+            onChangeViewPort={this.props.actions.changeViewport}
+          />
+        </Row>
+        <br />
+        <Row>
+          <Col sm={11}>
+            <SliderUI
+              onChangeSlider={this.changeSlider}
+              sliderValue={this.props.slidervalue}
+            />
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    viewport: state.splytmap.viewport,
+    mapStyle: state.splytmap.mapStyle,
+    drivers: state.splytmap.drivers,
+    slidervalue: state.sliderui.slidervalue
+    //pollcheckervalue: 0 // zero means off
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+/*
+
+
+          <Col sm={1}>
+            <PollChecker
+              pollCheckerValue={this.state.pollcheckervalue}
+              pollClickChecker={this.pollClickChecker}
+            />
+          </Col>
+        </Row>
+
+
+
+
+//Checking for Unique userID
+componentDidMount() {
+  this.timer = setInterval(() => this.getCheckDrivers(), 2000);
+}
+
+
+ constructor(props) {
     super(props);
     this.state = {
       viewport: {
@@ -26,7 +95,7 @@ class App extends Component {
     this.getDrivers();
   }
 
-  //SLIDER RELATED
+//SLIDER RELATED
   changeSlider = values => {
     this.setState({ slidervalue: values });
   };
@@ -51,32 +120,6 @@ class App extends Component {
     this.setState({ viewport });
   };
 
-  getDrivers() {
-    axios
-      .get(
-        "https://cors-anywhere.herokuapp.com/https://qa-interview-test.qa.splytech.io/api/drivers", //https cors-anywhere added to fix cors error
-        {
-          params: {
-            latitude: 51.5049375,
-            longitude: -0.0964509,
-            count: this.state.slidervalue[0]
-          }
-        }
-      )
-      .then(response => {
-        this.setState({
-          ...this.state,
-          drivers: response.data.drivers
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
-      .then(function() {
-        // always executed
-      });
-  }
-
   //POLLCHECKER RELATED
 
   pollClickChecker = pollcheckervalue => {
@@ -92,45 +135,13 @@ class App extends Component {
     this.timer = null;
   }
 
-  render() {
-    return (
-      <Container>
-        <Row>
-          <SplytMap
-            mapStyle={this.state.mapStyle}
-            viewport={this.state.viewport}
-            sliderValue={this.state.slidervalue}
-            drivers={this.state.drivers}
-            onChangeViewPort={this.changeViewport}
-          />
-        </Row>
-        <br />
-        <Row>
-          <Col sm={11}>
-            <SliderUI
-              onChangeSlider={this.changeSlider}
-              sliderValue={this.state.slidervalue}
-            />
-          </Col>
-          <Col sm={1}>
-            <PollChecker
-              pollCheckerValue={this.state.pollcheckervalue}
-              pollClickChecker={this.pollClickChecker}
-            />
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
 
-export default App;
 
-/*
-//Checking for Unique userID
-componentDidMount() {
-  this.timer = setInterval(() => this.getCheckDrivers(), 2000);
-}
+
+
+
+
+
 
 getCheckDrivers() {
   axios
@@ -170,5 +181,7 @@ getCheckDrivers() {
       // always executed
     });
 }
+
+
 
 */

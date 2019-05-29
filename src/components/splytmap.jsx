@@ -13,7 +13,10 @@ class SplytMap extends Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           mapStyle={this.props.mapStyle}
           {...this.props.viewport}
-          onViewportChange={viewport => this.props.onChangeViewPort(viewport)}
+          onViewportChange={newViewPort =>
+            //console.log(newViewPort),
+            this.props.onChangeViewPort({ newViewPort })
+          }
         >
           {this.props.drivers.map((driver, i) => {
             return (
