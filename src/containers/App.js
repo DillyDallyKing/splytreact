@@ -13,6 +13,21 @@ class App extends Component {
   componentWillMount() {
     this.props.actions.requestDrivers();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.pollcheckervalue !== this.props.pollcheckervalue) {
+      if (this.props.pollcheckervalue === 0) {
+        clearInterval(this.timer);
+        this.timer = null;
+      } else {
+        this.timer = setInterval(
+          () => this.props.actions.requestDrivers(this.props.slidervalue[0]),
+          3000
+        );
+      }
+    }
+  }
+
   render() {
     return (
       <Container>
@@ -35,6 +50,12 @@ class App extends Component {
               sliderValue={this.props.slidervalue}
             />
           </Col>
+          <Col sm={1}>
+            <PollChecker
+              pollCheckerValue={this.props.pollcheckervalue}
+              pollClickChecker={this.props.actions.pollClickChecker}
+            />
+          </Col>
         </Row>
       </Container>
     );
@@ -46,8 +67,8 @@ function mapStateToProps(state) {
     viewport: state.splytmap.viewport,
     mapStyle: state.splytmap.mapStyle,
     drivers: state.splytmap.drivers,
-    slidervalue: state.sliderui.slidervalue
-    //pollcheckervalue: 0 // zero means off
+    slidervalue: state.sliderui.slidervalue,
+    pollcheckervalue: state.pollchecker.pollcheckervalue
   };
 }
 
@@ -63,42 +84,15 @@ export default connect(
 )(App);
 
 /*
-
-
-          <Col sm={1}>
-            <PollChecker
-              pollCheckerValue={this.state.pollcheckervalue}
-              pollClickChecker={this.pollClickChecker}
-            />
-          </Col>
-        </Row>
-
-
-
-
+        
 //Checking for Unique userID
 componentDidMount() {
   this.timer = setInterval(() => this.getCheckDrivers(), 2000);
 }
 
 
- constructor(props) {
-    super(props);
-    this.state = {
-      viewport: {
-        width: 1150,
-        height: 600,
-        latitude: 51.5049375,
-        longitude: -0.0964509,
-        zoom: 13
-      },
-      mapStyle: "mapbox://styles/mapbox/dark-v9",
-      drivers: [],
-      slidervalue: [1],
-      pollcheckervalue: 0 // zero means off
-    };
-    this.getDrivers();
-  }
+ 
+
 
 //SLIDER RELATED
   changeSlider = values => {

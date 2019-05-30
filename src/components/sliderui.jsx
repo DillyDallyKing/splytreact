@@ -39,7 +39,7 @@ class SliderUI extends Component {
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
           onChange={newSliderValue =>
-            newSliderValue[0] == sliderValue[0]
+            newSliderValue[0] === sliderValue[0]
               ? null
               : onChangeSlider(newSliderValue)
           }

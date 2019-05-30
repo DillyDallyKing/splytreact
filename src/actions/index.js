@@ -3,6 +3,7 @@ import axios from "axios";
 export const REQUEST_DRIVERS = "REQUEST_DRIVERS";
 export const CHANGE_VIEWPORT = "CHANGE_VIEWPORT";
 export const SLIDER_CHANGE = "SLIDER_CHANGE";
+export const POLL_CHECK_TOGGLE = "POLL_CHECK_TOGGLE";
 
 const API_URL =
   "https://cors-anywhere.herokuapp.com/https://qa-interview-test.qa.splytech.io/api/drivers";
@@ -77,6 +78,14 @@ export const changeViewport = newViewport => {
     dispatch({
       type: CHANGE_VIEWPORT,
       payload: newViewport
+    });
+  };
+};
+
+export const pollClickChecker = () => {
+  return dispatch => {
+    dispatch({
+      type: POLL_CHECK_TOGGLE
     });
   };
 };
