@@ -17,7 +17,7 @@ class SliderUI extends Component {
     this.setState({ update });
   };
   render() {
-    const { sliderValue } = this.props;
+    const { sliderValue, onChangeSlider } = this.props;
     return (
       <React.Fragment>
         <h3>
@@ -38,7 +38,11 @@ class SliderUI extends Component {
           domain={domain}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
-          onChange={this.props.onChangeSlider}
+          onChange={newSliderValue =>
+            newSliderValue[0] == sliderValue[0]
+              ? null
+              : onChangeSlider(newSliderValue)
+          }
           values={sliderValue}
         >
           <Rail>

@@ -10,6 +10,9 @@ import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
 
 class App extends Component {
+  componentWillMount() {
+    this.props.actions.requestDrivers();
+  }
   render() {
     return (
       <Container>
@@ -26,7 +29,9 @@ class App extends Component {
         <Row>
           <Col sm={11}>
             <SliderUI
-              onChangeSlider={this.changeSlider}
+              onChangeSlider={slidervalue => {
+                this.props.actions.sliderChange({ slidervalue });
+              }}
               sliderValue={this.props.slidervalue}
             />
           </Col>

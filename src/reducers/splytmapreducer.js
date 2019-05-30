@@ -1,6 +1,6 @@
 import { REQUEST_DRIVERS, CHANGE_VIEWPORT } from "../actions";
 
-const initialState = {
+let initialState = {
   viewport: {
     width: 1150,
     height: 600,
@@ -17,7 +17,7 @@ export default function splytmapreducer(state = initialState, action) {
     case REQUEST_DRIVERS:
       return {
         ...state,
-        drivers: action.payload.body.data.drivers
+        drivers: action.payload.data.drivers
       };
     case CHANGE_VIEWPORT:
       const viewport = {
