@@ -1,7 +1,7 @@
 import React from "react";
 import { Marker as RMarker } from "react-map-gl";
 
-import "./marker.css";
+import "../styles/marker.css";
 
 export const MarkerSvg = ({ color }) => (
   <svg height="25" width="25">

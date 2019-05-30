@@ -21,3 +21,9 @@ The Polling button can be toggled on & off in order to start a 3 second polling 
 1. Open terminal & run `npm install` in the main app directory `SplytReact`.
 
 2. Run `npm start` in the main app directory after `npm install` has completed. The apps should kick off and connect to your running server.
+
+## Redux Refactored Version
+
+The Redux Refactored Version has been implemented & can be tested @ [SplytReactRedux](http://splytreactredux.surge.sh/)
+
+The Redux Version has also been merged with the master. As Of 30/05/19.
