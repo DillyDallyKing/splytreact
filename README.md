@@ -24,6 +24,10 @@ The Polling button can be toggled on & off in order to start a 3 second polling 
 
 ## Redux Refactored Version
 
-The Redux Refactored Version has been implemented & can be tested @ [SplytReactRedux](http://splytreactredux.surge.sh/)
+The Redux Refactored version has been implemented & can be tested @ [SplytReactRedux](http://splytreactredux.surge.sh/)
 
 The Redux Version has also been merged with the master. As Of 30/05/19.
+
+## Technicsl Review Slides Faciliatation
+
+The link to the [Technical Review Slides](https://docs.google.com/presentation/d/16d8hXAhRUSJie_VM2IaKAW_2PeaEi-CbamXyhr9ag1w/edit?usp=sharing)
