@@ -28,6 +28,6 @@ The Redux Refactored version has been implemented & can be tested @ [SplytReactR
 
 The Redux Version has also been merged with the master. As Of 30/05/19.
 
-## Technicsl Review Slides Faciliatation
+## Technical Review Facilitation Slides
 
 The link to the [Technical Review Slides](https://docs.google.com/presentation/d/16d8hXAhRUSJie_VM2IaKAW_2PeaEi-CbamXyhr9ag1w/edit?usp=sharing)
